@@ -1,0 +1,60 @@
+{
+	"mmses":
+	[
+		{	
+			"From": "12",
+			"To": "ew",
+			"Cc": "",
+			"Bcc": "",
+			"Subject": "Ako how?",
+			
+			"Content":
+			{
+				"text":
+				{
+					"text":"",
+				},
+				"image":
+				{
+					"path":"",
+				},
+				"audio":
+				{
+					"path":"",
+				},
+				"video":
+				{
+					"path":"",
+				}
+			}
+		},
+		
+		{
+			"From": "",
+			"To": "",
+			"Cc": "",
+			"Bcc": "",
+			"subject": "",
+			
+			"Content":
+			{
+				"text":
+				{
+					"text":"",
+				},
+				"image":
+				{	
+					"path":"",
+				},
+				"audio":
+				{	
+					"path":"",
+				},
+				"video":
+				{
+					"path":"",
+				}
+			}
+		}
+	]
+}

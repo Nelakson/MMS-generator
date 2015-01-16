@@ -1,0 +1,140 @@
+{
+"mmses":
+[
+{
+"From": "+27747641494",
+"To": "+27763934938",
+"Cc": "",
+"Bcc": "",
+"subject": "Its just a Demo; relax.",
+
+"Content":
+{
+	"text":
+	{
+		"path":"/home/nelson/workspace/Templatization/txt/demo3.txt",
+	},
+	"image":
+	{
+		"path":"/home/nelson/workspace/Templatization/img/im5.jpeg",
+	},
+	"audio":
+	{
+		"path":"",
+	},
+	"video":
+	{
+		"path":"",
+	}
+}
+},
+{
+"From": "+27844407787",
+"To": "+27737721778",
+"Cc": "",
+"Bcc": "",
+"subject": "Its just a Demo; relax.",
+
+"Content":
+{
+	"text":
+	{
+		"path":"/home/nelson/workspace/Templatization/txt/demo0.txt",
+	},
+	"image":
+	{
+		"path":"/home/nelson/workspace/Templatization/img/im5.jpeg",
+	},
+	"audio":
+	{
+		"path":"",
+	},
+	"video":
+	{
+		"path":"",
+	}
+}
+},
+{
+"From": "+27763934938",
+"To": "+27737721778",
+"Cc": "",
+"Bcc": "",
+"subject": "Its just a Demo; relax.",
+
+"Content":
+{
+	"text":
+	{
+		"path":"/home/nelson/workspace/Templatization/txt/demo5.txt",
+	},
+	"image":
+	{
+		"path":"/home/nelson/workspace/Templatization/img/im2.jpeg",
+	},
+	"audio":
+	{
+		"path":"",
+	},
+	"video":
+	{
+		"path":"",
+	}
+}
+},
+{
+"From": "+27834335853",
+"To": "+27783118315",
+"Cc": "",
+"Bcc": "",
+"subject": "Its just a Demo; relax.",
+
+"Content":
+{
+	"text":
+	{
+		"path":"/home/nelson/workspace/Templatization/txt/demo4.txt",
+	},
+	"image":
+	{
+		"path":"/home/nelson/workspace/Templatization/img/im5.jpeg",
+	},
+	"audio":
+	{
+		"path":"",
+	},
+	"video":
+	{
+		"path":"",
+	}
+}
+},
+{
+"From": "+27832254762",
+"To": "+27712965484",
+"Cc": "",
+"Bcc": "",
+"subject": "Its just a Demo; relax.",
+
+"Content":
+{
+	"text":
+	{
+		"path":"/home/nelson/workspace/Templatization/txt/demo4.txt",
+	},
+	"image":
+	{
+		"path":"/home/nelson/workspace/Templatization/img/im4.jpeg",
+	},
+	"audio":
+	{
+		"path":"",
+	},
+	"video":
+	{
+		"path":"",
+	}
+}
+},
+]
+}

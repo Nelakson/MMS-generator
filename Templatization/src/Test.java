@@ -2,9 +2,19 @@ import java.util.*;
 import java.io.*;
 //import java.util.Base64;
 import javax.xml.bind.DatatypeConverter; 
+import java.net.InetAddress;
+import java.net.NetworkInterface;
+import java.io.BufferedInputStream;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.IOException;
+import java.io.RandomAccessFile;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.util.Arrays;
 
 public class Test
-{
+{	
 	  public static String choose(File f) throws FileNotFoundException
 	  {
 	     String result = null;
@@ -96,5 +106,129 @@ public class Test
         	}
         	catch(IOException e){}
         }        
+        
+        //Test IP address accessing.
+        try
+        {
+            InetAddress iAddress = InetAddress.getLocalHost();
+            String currentIp = iAddress.getHostAddress();
+            System.out.println("Current IP address : " +currentIp); //gives only host address
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        
+        try
+        {
+        Enumeration e = NetworkInterface.getNetworkInterfaces();
+        while(e.hasMoreElements())
+        {
+            NetworkInterface n = (NetworkInterface) e.nextElement();
+            Enumeration ee = n.getInetAddresses();
+            while (ee.hasMoreElements())
+            {
+                InetAddress i = (InetAddress) ee.nextElement();
+                System.out.println(i.getHostAddress());
+            }
+        }
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+        
+        //Test reading and editing a pcap file
+        FileInputStream in = null;
+        FileOutputStream out = null;
+        try
+        {
+            in = new FileInputStream("outputStream0.pcap");
+            out = new FileOutputStream("edited.pcap");
+            int c;
+            LinkedList<Integer> cTemp = new LinkedList<Integer>();
+            LinkedList<Integer> cc = new LinkedList<Integer>();
+
+            int[] ipLess = {0,0,0,0,0,0,0,0};
+            int[] ipv4 = ipLess;
+            int[] srcNdest = {172,21,0,70,172,21,0,70};
+            int[] new_srcNdest = {8,3,1,2,92,0,0,0};
+            
+            while ((c = in.read()) != -1)
+            {
+                ipv4[0] = ipv4[1];
+                ipv4[1] = ipv4[2];
+                ipv4[2] = ipv4[3];
+                ipv4[3] = ipv4[4];
+                ipv4[4] = ipv4[5];
+                ipv4[5] = ipv4[6];
+                ipv4[6] = ipv4[7];
+                ipv4[7] = c;
+                
+                if(Arrays.equals(srcNdest, ipv4))
+                {
+                	for(int last=0;last<7;last++) cTemp.removeLast(); //remove last seven entries by removing the last element seven times (seven and not eight because the last byte has not yet been added to the linked list).
+                	for(int edit=0;edit<8;edit++) cTemp.add(new_srcNdest[edit]); //Add new src and dest address 
+                	ipv4 = ipLess; //reset array ipv4 to ipLess address.
+                }
+                else
+                {
+                	cTemp.add(c);
+                	//out.write(c);
+                	//System.out.print(c+".");
+                }
+                cc.add(c);
+            }
+            in.close();
+            for(int cp=0;cp<cTemp.size();cp++)
+            {
+            	out.write(cTemp.get(cp));
+            	System.out.print(cTemp.get(cp)+".");
+            }
+            out.close();
+            for(int ccs=0;ccs<cc.size();ccs++) System.out.print(cc.get(ccs)+".");
+            System.out.println("\n");
+            System.out.println(cTemp.size()==cc.size());
+        } 
+        catch (IOException ex1)
+        {ex1.printStackTrace();} 
+        
+/*        try
+        {
+        	File file = new File("outputStream0.pcap");
+        	Reader br = new BufferedReader(new InputStreamReader(new FileInputStream(file), "ISO-8859-1"));
+        	//TODO remember to close the file streams.
+        	
+        	File efile = new File("edited.pcap");
+			// if file doesnt exists, then create it
+			if (!efile.exists()) {
+				efile.createNewFile();
+			}
+ 
+			FileWriter fw = new FileWriter(efile.getAbsoluteFile());
+			BufferedWriter bw = new BufferedWriter(fw);			
+		
+            int current = 0;
+            int[] ipv4 = new int[8];
+            int[] srcNdest = {172,21,0,70,172,21,0,70};
+            
+            do
+            {
+                current = br.read();
+                ipv4[0] = ipv4[1];
+                ipv4[1] = ipv4[2];
+                ipv4[2] = ipv4[3];
+                ipv4[3] = ipv4[4];
+                ipv4[4] = ipv4[5];
+                ipv4[5] = ipv4[6];
+                ipv4[6] = ipv4[7];
+                ipv4[7] = current;
+                
+                bw.write(current);              
+                System.out.print(current+".");
+            }while(current != -1);
+            bw.close();
+            br.close();
+        }
+        catch (IOException ex1)
+        {ex1.printStackTrace();} 
+	*/
 	}
 }

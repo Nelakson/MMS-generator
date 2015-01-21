@@ -85,7 +85,7 @@ public class MmsMessage {
 	//The two lines below are very closely related. A change on one should be effected on the other.
 	public static final String PART_BOUNDARY = "------=My_MMS_Demo_Part_distinguisher";
 	public static final String CTYPE_APPLICATION_MULTIPART_RELATED = "multipart/related; type=\"application/smil\"; .boundary=\""+ PART_BOUNDARY.substring(2)+"\"";
-	public static final String END_SEQUENCE = PART_BOUNDARY+"--\n\n.\nQUIT";
+	public static final String END_SEQUENCE = PART_BOUNDARY+"--\n\n.\nQUIT\n";
 	/*
 	 * =========================================================================
 	 * CLASS VARIABLES

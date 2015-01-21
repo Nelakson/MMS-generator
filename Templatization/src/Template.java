@@ -22,8 +22,9 @@ public class Template
 	 * Returns a json array of the Mmses in the input file.
 	 * @param inputFile is input data file name.
 	 **/
-	public static JSONArray readInput(String inputFile)
+	public static JSONArray getRandomInput(String inputFile, int noOfMmses)
 	{
+		generateRandomInput(inputFile, noOfMmses);
 		JSONArray mmses = null;
 		try 
 		{
@@ -45,7 +46,6 @@ public class Template
 				System.out.println(mms.get("Content").toString());
 				System.out.println(content.toString() + "\n\n");
 				System.out.println(txt.toString() + "\n\n");
-
 			}
             reader.close();
 		}	 
@@ -65,7 +65,7 @@ public class Template
 		try 
 		{  
             // Writing to a file  
-            File file = new File(tempFile);  
+            File file = new File(System.getProperty("user.dir")+"/output_mmses/"+ tempFile);  
             //file.createNewFile();  
             FileWriter fileWriter = new FileWriter(file);  
 			fileWriter.write("DATA\n");
@@ -161,7 +161,7 @@ public class Template
 		String randSender;
     	try
     	{
-    		randSender = choose(new File(System.getProperty("user.dir")+"/sender_addresses.txt"));
+    		randSender = choose(new File(System.getProperty("user.dir")+"/addresses/sender_addresses.txt"));
     		inputParam[0] = randSender;
     		//System.out.println(randSender);
     	}
@@ -170,7 +170,7 @@ public class Template
 		String randReceiver;
     	try
     	{
-    		randReceiver = choose(new File(System.getProperty("user.dir")+"/receiver_addresses.txt"));
+    		randReceiver = choose(new File(System.getProperty("user.dir")+"/addresses/receiver_addresses.txt"));
     		inputParam[1] = randReceiver;
     		//System.out.println(randReceiver);
     	}
@@ -201,7 +201,7 @@ public class Template
     	return mmsJsonString(inputParam);
 	}
 	
-	public static String mmsJsonString(String[] p)
+	private static String mmsJsonString(String[] p)
 	{
 		String env = "{\n\"From\": \""+p[0]+"\",\n\"To\": \""+p[1]+"\",\n\"Cc\": \""+p[2]+"\",\n\"Bcc\": \""+p[3]+"\",\n\"subject\": \""+p[4]+"\",\n";
 		String cont = "\n\"Content\":\n{\n\t\"text\":\n\t{\n\t\t\"path\":\""+p[5]+"\",\n\t},\n\t\"image\":\n\t{\n\t\t\"path\":\""+p[6]+"\",\n\t},\n\t\"audio\":\n\t{\n\t\t\"path\":\""+p[7]+"\",\n\t},\n\t\"video\":\n\t{\n\t\t\"path\":\""+p[8]+"\",\n\t}\n}\n},\n"; 
@@ -210,14 +210,31 @@ public class Template
 	
 	public static void main(String[] args) throws MmsMessageException, FileNotFoundException, MmsContentException
 	{
-		generateRandomInput("myJSON_input.json", 5);
 		//JSONArray mmses = readInput("input.json");
-		JSONArray mmses = readInput("myJSON_input.json");
+		JSONArray mmses = getRandomInput("myJSON_inputs.json", 2);
+		
 		String filename;
+		ArrayList<String> filenames = new ArrayList<String>();
 		for(int i=0; i<mmses.size();i++)
 		{
+			//For mms output file names.
 			filename = "mms"+i+".txt";
-			templateFile((JSONObject)mmses.get(0), filename);
+			filenames.add(filename);
+			templateFile((JSONObject)mmses.get(i), filename);		
 		}
+		
+		try 
+		{
+            File mmsFilenames = new File(System.getProperty("user.dir")+"/output_mms_filenames.txt/");  
+            FileWriter writeFilename = new FileWriter(mmsFilenames);
+            for(int j=0;j<filenames.size();j++)
+            {	
+            	writeFilename.write("output_mmses/"+filenames.get(j)+"\n");
+            }
+	        writeFilename.flush();  
+	        writeFilename.close();
+		}
+        catch (IOException e){e.printStackTrace();}	
+
 	}
 }
